@@ -254,27 +254,91 @@
   .s7.revealed .finale-text { opacity: 1; transform: none; pointer-events: auto; }
   .finale-text p { color: var(--on-surface-var); font-size: 15px; margin-bottom: 16px; }
 
-  /* ---------- animated emoji gifs (Google Noto) ---------- */
-  .gif { display: block; pointer-events: none; filter: drop-shadow(0 8px 18px rgba(0,0,0,.35)); }
+  /* ---------- cute animated stickers ---------- */
+  .gif {
+    display: block; pointer-events: none; aspect-ratio: 1; object-fit: contain;
+    background: #fffafd; border-radius: 36%; padding: 1%;
+    box-shadow: 0 12px 30px rgba(0,0,0,.35), 0 0 0 5px rgba(255,255,255,.10);
+  }
+  .gif.bare { background: none; box-shadow: none; padding: 0; border-radius: 0; aspect-ratio: auto; filter: drop-shadow(0 8px 18px rgba(0,0,0,.35)); }
   .gif.float { animation: float 4s ease-in-out infinite; }
   .gif.abs { position: absolute; z-index: 1; }
-  .gif-row { display: flex; gap: 6px; justify-content: center; margin-bottom: 14px; }
-  .envelope .card .gif { width: 70%; }
-  .s1 .g-plead { width: 84px; margin: 0 auto 12px; }
-  .s2 .g-party { width: clamp(90px, 18vw, 160px); margin-bottom: 8px; }
-  .s2 .g-balloon { width: clamp(70px, 12vw, 120px); right: 8%; bottom: 14%; animation-duration: 5s; }
-  .s3 .g-love { width: clamp(90px, 16vw, 140px); margin-top: 24px; }
-  .s4 .gif-row .gif { width: 64px; }
-  .s5 .g-heart { width: 72px; right: 10%; top: 14%; }
-  .s5 .g-hug { width: 96px; margin: 0 auto 10px; }
-  .s6 .g-pop { width: 120px; left: 50%; top: 50%; margin: -260px 0 0 -60px; opacity: 0; transform: scale(.3); transition: opacity .4s, transform .7s var(--ease-emph); }
-  .s6 .g-wind { width: 80px; position: absolute; right: -90px; top: 40px; opacity: 0; transition: opacity .3s; }
+  .gif-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 18px; }
+  .gif-row .gif:nth-child(2) { border-radius: 50%; }
+  .gif-row .gif:nth-child(3) { border-radius: 44% 44% 18% 44%; }
+  .envelope .card { background: #fff !important; }
+  .envelope .card { overflow: hidden; }
+  .envelope .card .gif { position: absolute; left: 8%; top: 8%; width: 84%; height: 84%; object-fit: contain; filter: none; }
+  .s1 .g-plead { width: 100px; margin: 0 auto 14px; border-radius: 50%; }
+  .s2 .g-party { width: clamp(110px, 20vw, 160px); margin-bottom: 10px; }
+  .s2 .g-balloon { width: clamp(120px, 22vw, 190px); right: -14px; bottom: 15%; animation: reach 3.5s ease-in-out infinite; }
+  @keyframes reach { 50% { transform: translateX(-22px) rotate(-4deg); } }
+  .s3 .g-love { width: clamp(120px, 20vw, 150px); margin-top: 28px; border-radius: 50%; }
+  .s4 .gif-row .gif { width: 78px; }
+  .s5 .g-heart { width: 88px; right: 8%; top: 13%; border-radius: 50%; }
+  .s5 .g-hug { width: 116px; margin: 0 auto 14px; }
+  .s6 .g-pop { width: 130px; left: 50%; top: 50%; margin: -280px 0 0 -65px; opacity: 0; transform: scale(.3); transition: opacity .4s, transform .7s var(--ease-emph); border-radius: 50%; }
+  .s6 .g-wind { width: 84px; position: absolute; right: -96px; top: 30px; opacity: 0; transition: opacity .3s; }
   .s6 .cake.listening .g-wind { opacity: 1; }
   .s6.blown .g-pop { opacity: 1; transform: scale(1); }
-  .s7 .g-star { width: 64px; margin: 0 auto 10px; transition: opacity .6s; }
+  .s7 .g-star { width: 84px; margin: 0 auto 12px; transition: opacity .6s; border-radius: 50%; }
   .s7.revealed .g-star { opacity: 0; }
-  .scratch .g-secret { width: 64px; margin-bottom: 4px; }
-  @media (max-width: 520px) { .s6 .g-wind { right: -40px; top: -20px; width: 60px; } .s6 .g-pop { margin-top: -240px; } }
+  .scratch .g-secret { width: 66px; margin-bottom: 6px; box-shadow: 0 6px 16px rgba(80,40,160,.25); }
+  @media (max-width: 520px) { .s6 .g-wind { right: -36px; top: -30px; width: 66px; } .s6 .g-pop { margin-top: -250px; } }
+
+  /* ---------- photo slides ---------- */
+  .ph h2 { font-size: clamp(24px, 5.4vw, 42px); font-weight: 700; line-height: 1.15; margin-bottom: 8px; }
+  .ph .sub { font-size: 15px; opacity: .8; margin-bottom: 30px; max-width: 420px; line-height: 1.45; }
+  .frame { position: relative; }
+  .frame .photo { display: block; width: 100%; object-fit: cover; box-shadow: 0 24px 60px rgba(0,0,0,.5); }
+  .slide.active .frame .photo { animation: photoIn 1.1s var(--ease-emph) .25s both; }
+  @keyframes photoIn { from { clip-path: circle(0% at 50% 50%); transform: scale(1.15); } to { clip-path: circle(80% at 50% 50%); transform: none; } }
+  .frame .behind { position: absolute; z-index: -1; }
+  .frame .peek { position: absolute; z-index: 2; }
+  .slide.active .frame .peek { animation: peekIn .8s var(--ease-emph) 1.1s both, float 4s ease-in-out 1.9s infinite; }
+  @keyframes peekIn { from { transform: scale(0) rotate(-30deg); opacity: 0; } }
+
+  /* park photo — warm rose tones */
+  .ph1 { background: radial-gradient(120% 70% at 50% 0%, #5a2a3c 0%, #1e1216 70%); color: #ffd9e2; }
+  .ph1 h2 b { color: #ffb1c6; }
+  .ph1 .frame { width: min(310px, 74vw, 44vh); }
+  .ph1 .photo { aspect-ratio: 4/5; border-radius: 999px 999px 44px 44px; object-position: 50% 30%; }
+  .ph1 .behind.a { inset: -26px -34px; background: #723347; animation: spin 30s linear infinite; }
+  .ph1 .behind.b { width: 90px; height: 90px; left: -46px; top: 18%; background: #ffb1c6; border-radius: 50%; opacity: .85; animation: float 5s ease-in-out infinite; }
+  .ph1 .peek { width: 96px; right: -30px; bottom: -28px; border-radius: 50%; }
+
+  /* home photo — teal + red, from the photo itself */
+  .ph2 { background: radial-gradient(120% 70% at 50% 100%, #0f4446 0%, #0b1718 70%); color: #c8f3f4; }
+  .ph2 h2 b { color: #80d4d8; }
+  .ph2 .frame { width: min(300px, 70vw, 40vh); transform: rotate(-3deg); }
+  .ph2 .photo { aspect-ratio: 3/4; border-radius: 40px; filter: brightness(1.18) contrast(1.05) saturate(1.1); border: 6px solid #e6fbfb; }
+  .ph2 .behind.a { width: 120%; height: 108%; left: -10%; top: -4%; background: #004f52; transform: rotate(9deg); animation: morph 11s ease-in-out infinite; }
+  .ph2 .behind.b { width: 70px; height: 70px; right: -34px; top: -26px; background: #ffb4a9; animation: spin 14s linear infinite; }
+  .ph2 .peek { width: 100px; left: -34px; bottom: -30px; }
+
+  /* ---------- credits ---------- */
+  .s9 { background: radial-gradient(100% 60% at 50% 0%, #2d2245, var(--surface) 70%); }
+  .s9 h2 { font-size: clamp(26px, 5.4vw, 44px); font-weight: 700; margin-bottom: 28px; }
+  .team { display: grid; gap: 12px; width: min(460px, 100%); }
+  .member {
+    display: flex; align-items: center; gap: 18px; text-align: left;
+    background: var(--surface-c-high); border-radius: 32px; padding: 18px 22px 18px 18px;
+    transition: border-radius .35s var(--ease), transform .35s var(--ease);
+  }
+  .member:hover { border-radius: 48px; transform: scale(1.02); }
+  .member .ava { flex: none; width: 76px; height: 76px; display: grid; place-items: center; }
+  .member .ava.z { background: var(--primary); color: var(--on-primary); font: 900 32px "Unbounded"; }
+  .member .ava.c { background: #2a1d19; border-radius: 26px; }
+  .member .ava.c svg { width: 60px; height: auto; animation: hop 1.6s ease-in-out infinite; }
+  @keyframes hop { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+  .member b { display: block; font: 700 20px "Unbounded"; margin-bottom: 4px; }
+  .member span { color: var(--on-surface-var); font-size: 14px; line-height: 1.45; }
+  .member .tag { display: inline-block; margin-top: 6px; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 4px 10px; border-radius: 8px; }
+  .member .tag.z { background: var(--primary-container); color: var(--on-primary-container); }
+  .member .tag.c { background: #4a2a1f; color: #ffb59a; }
+  .s9 .plus { font: 900 22px "Unbounded"; color: var(--primary); margin: -4px 0; }
+  .s9 .bye { margin: 28px 0 18px; color: var(--on-surface-var); }
+  .s9 .g-bye { width: 92px; margin: 0 auto 6px; border-radius: 50%; }
 
   /* ---------- 6a: fortune ---------- */
   .s8 { background: var(--secondary-container); color: var(--on-secondary-container); }
@@ -335,11 +399,11 @@
 
   <!-- 1. Открывашка -->
   <section class="slide s1 active" data-lock="1">
-    <img class="gif g-plead in" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f97a/512.webp" alt="">
+    <img class="gif g-plead in" src="assets/s0.webp" alt="">
     <h2 class="in">Альбина,<br>тебе послание</h2>
     <p class="in d1">Нажми на конверт, чтобы открыть</p>
     <div class="envelope in d2" id="envelope">
-      <div class="card"><img class="gif" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f48c/512.webp" alt=""></div>
+      <div class="card"><img class="gif bare" src="assets/bunny.gif" alt=""></div>
       <div class="body"></div>
       <div class="flap"></div>
       <div class="seal flower"><span class="ms">favorite</span></div>
@@ -351,8 +415,8 @@
     <div class="blob b1 scallop"></div>
     <div class="blob b2"></div>
     <div class="blob b3"></div>
-    <img class="gif abs float g-balloon" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f388/512.webp" alt="">
-    <img class="gif g-party in" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f973/512.webp" alt="">
+    <img class="gif abs float g-balloon" src="assets/s6.webp" alt="">
+    <img class="gif g-party in" src="assets/s4.webp" alt="">
     <div class="kicker in">Знаешь, что особенного</div>
     <h1 id="today">сегодня?</h1>
     <div class="sub in d3">Сегодня <b>твой</b> день рождения</div>
@@ -366,15 +430,15 @@
     <div class="words" id="words">
       <span>яркая</span><span>добрая</span><span>нежная</span><span>сильная</span><span>смешная</span><span>невероятная</span>
     </div>
-    <img class="gif g-love in d2" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f970/512.webp" alt="">
+    <img class="gif g-love in d2" src="assets/pin.gif" alt="">
   </section>
 
   <!-- 4. Пожелания -->
   <section class="slide s4">
     <div class="gif-row in">
-      <img class="gif float" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f381/512.webp" alt="">
-      <img class="gif float" style="animation-delay:-1.3s" src="https://fonts.gstatic.com/s/e/notoemoji/latest/2728/512.webp" alt="">
-      <img class="gif float" style="animation-delay:-2.6s" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f338/512.webp" alt="">
+      <img class="gif float" src="assets/s5.webp" alt="">
+      <img class="gif float" style="animation-delay:-1.3s" src="assets/s7.webp" alt="">
+      <img class="gif float" style="animation-delay:-2.6s" src="assets/bunny.gif" alt="">
     </div>
     <h2 class="in">Желаю тебе</h2>
     <div class="chips" id="chips">
@@ -396,8 +460,8 @@
   <!-- 5. Письмо -->
   <section class="slide s5">
     <div class="blob b1 scallop"></div>
-    <img class="gif abs float g-heart" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f49c/512.webp" alt="">
-    <img class="gif g-hug in" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f917/512.webp" alt="">
+    <img class="gif abs float g-heart" src="assets/s2.webp" alt="">
+    <img class="gif g-hug in" src="assets/s7.webp" alt="">
     <p class="in d1">Альбина, с днём рождения! Ты делаешь мир вокруг теплее — просто тем, что ты в нём есть.</p>
     <p class="in d2">Пусть этот год принесёт тебе всё, о чём ты мечтаешь, и даже то, о чём ещё не успела.</p>
     <div class="sign in d3">— с любовью 💜</div>
@@ -420,9 +484,9 @@
 
   <!-- 6. Торт -->
   <section class="slide s6" data-lock="1">
-    <img class="gif abs g-pop" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f389/512.webp" alt="">
+    <img class="gif abs g-pop" src="assets/s7.webp" alt="">
     <div class="cake in" id="cake">
-      <img class="gif g-wind" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f32c_fe0f/512.webp" alt="">
+      <img class="gif g-wind" src="assets/s3.webp" alt="">
       <div class="candles">
         <div class="candle"><div class="flame"></div><div class="smoke"></div></div>
         <div class="candle"><div class="flame"></div><div class="smoke"></div></div>
@@ -440,21 +504,69 @@
     </div>
   </section>
 
+  <!-- Фото 1 -->
+  <section class="slide ph ph1">
+    <h2 class="in">Вот она — <b>именинница</b></h2>
+    <p class="sub in d1">Весна, солнце и самая красивая улыбка на свете</p>
+    <div class="frame in d1">
+      <div class="behind a scallop"></div>
+      <div class="behind b"></div>
+      <img class="photo" src="assets/albina-park.jpg" alt="Альбина в парке">
+      <img class="gif peek" src="assets/s4.webp" alt="">
+    </div>
+  </section>
+
+  <!-- Фото 2 -->
+  <section class="slide ph ph2">
+    <h2 class="in">Ты умеешь дарить <b>тепло</b></h2>
+    <p class="sub in d1">Рядом с тобой всем становится уютнее и спокойнее</p>
+    <div class="frame in d1">
+      <div class="behind a"></div>
+      <div class="behind b flower"></div>
+      <img class="photo" src="assets/albina-home.jpg" alt="Альбина дома">
+      <img class="gif peek" src="assets/bunny.gif" alt="">
+    </div>
+  </section>
+
   <!-- 7. Финал -->
   <section class="slide s7" data-lock="1">
     <canvas id="stars"></canvas>
-    <img class="gif g-star float" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f31f/512.webp" alt="">
+    <img class="gif g-star float" src="assets/bunny.gif" alt="">
     <div class="top">Последний подарок. Сотри серебро 👇</div>
     <div class="scratch" id="scratch">
-      <img class="gif g-secret" src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f496/512.webp" alt="">
+      <img class="gif g-secret" src="assets/s2.webp" alt="">
       <div class="secret-k">секрет</div>
       <div class="secret">Ты — главное чудо этого дня</div>
       <canvas id="scratchCv"></canvas>
     </div>
     <div class="finale-text">
       <p>Коснись звёзд — они знают твоё имя ✨</p>
-      <button class="btn tonal" id="restart"><span class="ms">replay</span>Открыть заново</button>
     </div>
+  </section>
+
+  <!-- Титры -->
+  <section class="slide s9">
+    <h2 class="in">Над открыткой<br>работали</h2>
+    <div class="team">
+      <div class="member in d1">
+        <div class="ava z flower">З</div>
+        <div><b>Захар</b><span>Придумал открытку, собрал фото и вложил всю любовь</span><br><em class="tag z">идея и сердце</em></div>
+      </div>
+      <div class="plus in d2">+</div>
+      <div class="member in d2">
+        <div class="ava c">
+          <svg viewBox="0 120 640 420" aria-label="Claude">
+            <path fill="#d97757" fill-rule="evenodd" d="M80 133H560V292H640V373H560V453H520V532H480V453H440V532H400V453H240V532H200V453H160V532H120V453H80V373H0V292H80Z M160 215H200V292H160Z M440 215H480V292H440Z"/>
+          </svg>
+        </div>
+        <div><b>Claude</b><span>Написал код, нарисовал анимации и подобрал цвета</span><br><em class="tag c">код и дизайн · ИИ</em></div>
+      </div>
+    </div>
+    <div class="bye in d3">
+      <img class="gif g-bye" src="assets/s4.webp" alt="">
+      С днём рождения, Альбина! 💜
+    </div>
+    <button class="btn tonal in d4" id="restart"><span class="ms">replay</span>Открыть заново</button>
   </section>
 </div>
 
@@ -588,6 +700,7 @@
   function onEnter(i) {
     if (i === 2) runWords(); else clearInterval(wordTimer);
     if (slides[i].classList.contains('s7')) initScratch();
+    if (slides[i].classList.contains('s9')) setTimeout(() => { burst(140, .3, .3); burst(140, .7, .3); }, 600);
     if (!slides[i].classList.contains('s6')) stopMic();
   }
 
@@ -681,7 +794,7 @@
   function reveal() {
     revealed = true;
     scv.style.opacity = 0;
-    setTimeout(() => { s7.classList.add('revealed'); starName(); }, 500);
+    setTimeout(() => { s7.classList.add('revealed'); starName(); unlock(slides.indexOf(s7)); }, 500);
     burst(180, .5, .45);
   }
 
